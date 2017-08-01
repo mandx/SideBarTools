@@ -3,6 +3,11 @@
 		"id": "SideBarTools", "caption": "-"
 	},
 	{
+		"caption": "Refresh\u2026",
+		"command": "refresh_folder_list",
+		"args": { "paths": [] }
+	},
+	{
 		"caption": "Copy Filename",
 		"command": "side_bar_copy_name",
 		"args": { "paths": [] }
@@ -18,13 +23,18 @@
 		"args": { "paths": [] }
 	},
 	{
-		"caption": "Duplicate…",
+		"caption": "Duplicate\u2026",
 		"command": "side_bar_duplicate",
 		"args": { "paths": [] }
 	},
 	{
-		"caption": "Move…",
+		"caption": "Move\u2026",
 		"command": "side_bar_move",
+		"args": { "paths": [] }
+	},
+	{
+		"caption": "New\u2026",
+		"command": "side_bar_new",
 		"args": { "paths": [] }
 	}
 ]
