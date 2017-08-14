@@ -80,9 +80,10 @@ class SideBarCopyRelativePathCommand(MultipleFilesMixin, SideBarCommand):
 
         for path in paths:
             common = os.path.commonprefix([root_dir, path])
-            path = path[len(common):]
-            if path.startswith('/') or path.startswith('\\'):
-                path = path[1:]
+            if len(common) > 1:
+                path = path[len(common):]
+                if path.startswith('/') or path.startswith('\\'):
+                    path = path[1:]
             relative_paths.append(path)
 
         self.copy_to_clipboard_and_inform('\n'.join(relative_paths))
