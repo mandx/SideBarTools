@@ -13,6 +13,12 @@ import sublime
 import sublime_plugin
 
 
+def with_trailing_path_sep(path):
+    if path[-1] != os.path.sep:
+        return path + os.path.sep
+    return path
+
+
 class SideBarCommand(sublime_plugin.WindowCommand):
     """
     Base class for all SideBarTools commands
@@ -141,15 +147,17 @@ class SideBarCopyRelativePathCommand(MultipleFilesMixin, SideBarCommand):
         else:
             root_dir = self.window.project_data()['folders'][0]['path']
 
+        root_dir = with_trailing_path_sep(root_dir)
+
         paths = self.get_paths(paths)
         relative_paths = []
 
         for path in paths:
             common = os.path.commonprefix([root_dir, path])
+
             if len(common) > 1:
                 path = path[len(common):]
-            if path.startswith(os.path.sep) or path.startswith('/') or path.startswith('\\'):
-                path = path[1:]
+
             relative_paths.append(path)
 
         self.copy_to_clipboard_and_inform('\n'.join(relative_paths))
@@ -302,11 +310,8 @@ class SideBarMoveCommand(SideBarCommand):
 
         is_file_move = os.path.isfile(destination)
 
-        if source[-1] != os.path.sep:
-            source += os.path.sep
-
-        if destination[-1] != os.path.sep:
-            destination += os.path.sep
+        source = with_trailing_path_sep(source)
+        destination = with_trailing_path_sep(destination)
 
         for window in sublime.windows():
             for view in window.views():
